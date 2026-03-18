@@ -55,11 +55,25 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketsRequestDTO updateTicket(Long id, TicketsRequestDTO ticketsRequestDTO) {
-        return null;
+
+        Tickets ticket = repo.findById(id).orElseThrow(() -> new NotFoundException("Ticket not found"));
+        Status status = statusRepository.findById(ticketsRequestDTO.getStatus()).orElseThrow(() -> new NotFoundException("Status not found"));
+        Tariff tariff = tariffRepository.findById(ticketsRequestDTO.getTariff()).orElseThrow(() -> new NotFoundException("Tariff not found"));
+
+        ticket.setTariff(tariff);
+        ticket.setCheckInAt(ticketsRequestDTO.getCheckInAt());
+        ticket.setCheckOutAt(ticketsRequestDTO.getCheckOutAt());
+        ticket.setTotal(ticketsRequestDTO.getTotal());
+        ticket.setStatus(status);
+
+        return Mapper.toRequestDTO(repo.save(ticket));
     }
 
     @Override
     public Void deleteTicket(Long id) {
+
+        Tickets ticket = repo.findById(id).orElseThrow(() -> new NotFoundException("Ticket not found to delete"));
+        repo.delete(ticket);
         return null;
     }
 }

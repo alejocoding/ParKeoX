@@ -3,6 +3,7 @@ package com.ParkeoX.ParkeoX.mappers;
 import com.ParkeoX.ParkeoX.DTO.request.brandDTO.BrandDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyResponseDTO;
+import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsDTO.PaymentsDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsMethodDTO.PaymentsMethodDTO;
 import com.ParkeoX.ParkeoX.DTO.request.rolesDTO.RolesDTO;
@@ -191,6 +192,18 @@ public class Mapper {
                 .status(t.getStatus().getStatus())
                 .total(t.getTotal())
                 .build();
+    }
+
+    public static LicenseTypeDTO toDTO(LicenseType lt) {
+        if(lt == null) return null;
+
+        return LicenseTypeDTO.builder()
+                .id(lt.getId())
+                .name(lt.getName())
+                .MonthDuration(lt.getMonthDuration())
+                .createdAt(lt.getCreatedAt())
+                .build();
+
     }
 
 }

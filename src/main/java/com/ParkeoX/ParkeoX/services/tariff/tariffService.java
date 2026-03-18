@@ -65,7 +65,9 @@ public class tariffService implements ITariffService {
 
     @Override
     public Void DeleteTariff(Long id) {
-       repo.deleteById(id);
+
+        Tariff tariff = repo.findById(id).orElseThrow(() -> new NotFoundException("Tariff not found"));
+        repo.delete(tariff);
         return null;
     }
 }

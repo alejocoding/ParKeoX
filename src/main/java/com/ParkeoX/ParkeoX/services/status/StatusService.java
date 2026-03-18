@@ -40,7 +40,7 @@ public class StatusService implements IStatusService{
     @Override
     public StatusDTO updateStatus(Long id, StatusDTO statusDTO) {
 
-            // IF EXIST
+
         Status status = repo.findById(id).orElseThrow( ()-> new NotFoundException("Status not found"));
 
         if(status.getId() == 1) throw new NotFoundException("CANNOT MODIFY STATUS");
