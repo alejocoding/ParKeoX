@@ -10,6 +10,7 @@ import com.ParkeoX.ParkeoX.DTO.request.statusDTO.StatusDTO;
 import com.ParkeoX.ParkeoX.DTO.request.tariffDTO.TariffRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.tariffDTO.TariffResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.ticketsDTO.TicketsRequestDTO;
+import com.ParkeoX.ParkeoX.DTO.request.ticketsDTO.TicketsResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehicleTypeDTO.VehicleTypeDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesResponseDTO;
@@ -168,9 +169,27 @@ public class Mapper {
 
         return TicketsRequestDTO.builder()
                 .id(t.getId())
-                .vehicle(t.getVehicle())
+                .vehicle(t.getVehicle().getPlateNo())
+                .checkInAt(t.getCheckInAt())
+                .checkOutAt(t.getCheckOutAt())
+                .tariff(t.getTariff().getId())
+                .status(t.getStatus().getId())
+                .total(t.getTotal())
+                .build();
+    }
 
 
+    public static TicketsResponseDTO toResponseDTO(Tickets t){
+        if(t == null) return null;
+
+        return TicketsResponseDTO.builder()
+                .id(t.getId())
+                .vehicle(t.getVehicle().getPlateNo())
+                .checkInAt(t.getCheckInAt())
+                .checkOutAt(t.getCheckOutAt())
+                .tariff(t.getTariff().getPrice())
+                .status(t.getStatus().getStatus())
+                .total(t.getTotal())
                 .build();
     }
 

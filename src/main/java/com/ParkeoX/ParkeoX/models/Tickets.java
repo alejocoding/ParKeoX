@@ -33,10 +33,6 @@ public class Tickets {
     @JoinColumn(name = "tariff_id", nullable = false)
     private Tariff tariff;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private List<Payments> payments;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id", nullable = false)
     private Status status;
