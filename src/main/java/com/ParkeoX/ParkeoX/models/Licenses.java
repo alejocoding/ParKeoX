@@ -18,9 +18,15 @@ public class Licenses {
     @Id
     private String id_license;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id",nullable = true)
+    private Company company;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_LicenseType", nullable = false)
     private LicenseType licenseType;
+
     private Double price;
     private LocalDateTime beginAt;
     private LocalDateTime endAt;

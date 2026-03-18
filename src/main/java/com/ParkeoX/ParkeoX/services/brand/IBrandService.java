@@ -1,7 +1,6 @@
 package com.ParkeoX.ParkeoX.services.brand;
 
 import com.ParkeoX.ParkeoX.DTO.request.brandDTO.BrandDTO;
-import com.ParkeoX.ParkeoX.models.Brand;
 
 import java.util.List;
 

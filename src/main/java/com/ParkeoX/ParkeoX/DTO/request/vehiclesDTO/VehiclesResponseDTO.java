@@ -1,9 +1,7 @@
 package com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO;
 
-import com.ParkeoX.ParkeoX.models.Brand;
-import com.ParkeoX.ParkeoX.models.VehicleType;
-import lombok.*;
 
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,13 +11,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 
-
-public class VehiclesDTO {
+public class VehiclesResponseDTO {
 
     private String plateNo;
-    private Brand brand;
+    private String brand;
     private String model;
     private String color;
-    private VehicleType vehicleType;
+    private String vehicleType;
     private LocalDateTime createdAt;
 }

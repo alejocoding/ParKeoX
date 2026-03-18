@@ -34,7 +34,7 @@ public class Users {
     //Logic and permissions
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_rol",nullable = false)
+    @JoinColumn(name = "rol_id",nullable = false)
     private Roles role;
 
     @ManyToOne(fetch = FetchType.LAZY)

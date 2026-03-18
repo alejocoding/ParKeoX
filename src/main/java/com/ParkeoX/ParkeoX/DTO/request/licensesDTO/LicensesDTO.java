@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class LicensesDTO {
 
     private String id_license;
-    private LicenseType licenseType;
+    private Long licenseType;
     private Double price;
     private LocalDateTime beginAt;
     private LocalDateTime endAt;

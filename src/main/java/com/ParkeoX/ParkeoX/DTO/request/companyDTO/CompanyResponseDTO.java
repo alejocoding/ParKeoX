@@ -1,6 +1,6 @@
 package com.ParkeoX.ParkeoX.DTO.request.companyDTO;
 
-import com.ParkeoX.ParkeoX.models.Status;
+
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 
-public class CompanyDTO {
+public class CompanyResponseDTO {
 
     private Long id;
+    private String nit;
     private String name;
     private String address;
-    private Status status;
+    private String status;
     private LocalDateTime createdAt;
-
-
 
 }

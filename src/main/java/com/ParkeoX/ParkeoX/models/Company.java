@@ -18,6 +18,9 @@ public class Company {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nit", nullable = false, unique = true, length = 20)
+    private String nit;
+
     @Column(unique = true, nullable = false)
     private String name;
 

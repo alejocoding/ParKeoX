@@ -1,7 +1,6 @@
 package com.ParkeoX.ParkeoX.controllers.brand;
 
 import com.ParkeoX.ParkeoX.DTO.request.brandDTO.BrandDTO;
-import com.ParkeoX.ParkeoX.models.Brand;
 import com.ParkeoX.ParkeoX.services.brand.IBrandService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

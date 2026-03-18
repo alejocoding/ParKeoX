@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 
 public class PaymentsDTO {
     private Long id;
-    private Tickets ticket;
-    private PaymentMethod PaymentMethod;
+    private Long ticket;
+    private Long PaymentMethod;
     private Double amount;
     private LocalDateTime paymentDate;
 }

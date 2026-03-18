@@ -6,7 +6,6 @@ import com.ParkeoX.ParkeoX.mappers.Mapper;
 import com.ParkeoX.ParkeoX.models.Brand;
 import com.ParkeoX.ParkeoX.repository.brandRepository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
