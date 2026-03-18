@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class LicensesTypeService implements ILicencesType {
+public class LicensesTypeServiceService implements ILicencesTypeService {
 
 
     private final LicenseTypeRepository repo;

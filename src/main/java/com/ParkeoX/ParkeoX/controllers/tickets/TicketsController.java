@@ -33,4 +33,16 @@ public class TicketsController {
     }
 
 
+    @PutMapping("/{ticketId}")
+    public ResponseEntity<TicketsRequestDTO>  update(@PathVariable Long ticketId, @RequestBody TicketsRequestDTO ticketsRequestDTO) {
+        TicketsRequestDTO ticket = ticketService.updateTicket(ticketId, ticketsRequestDTO);
+        return ResponseEntity.ok().body(ticket);
+    }
+
+     @DeleteMapping("/{id}")
+    public ResponseEntity<TicketsRequestDTO>  delete(@PathVariable Long id) {
+        ticketService.deleteTicket(id);
+        return ResponseEntity.noContent().build();
+     }
+
 }
