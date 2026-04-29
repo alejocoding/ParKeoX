@@ -4,6 +4,8 @@ import com.ParkeoX.ParkeoX.DTO.request.brandDTO.BrandDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
+import com.ParkeoX.ParkeoX.DTO.request.licensesDTO.LicensesRequestDTO;
+import com.ParkeoX.ParkeoX.DTO.request.licensesDTO.LicensesResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsDTO.PaymentsDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsMethodDTO.PaymentsMethodDTO;
 import com.ParkeoX.ParkeoX.DTO.request.rolesDTO.RolesDTO;
@@ -12,6 +14,8 @@ import com.ParkeoX.ParkeoX.DTO.request.tariffDTO.TariffRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.tariffDTO.TariffResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.ticketsDTO.TicketsRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.ticketsDTO.TicketsResponseDTO;
+import com.ParkeoX.ParkeoX.DTO.request.usersDTO.UserRequestDTO;
+import com.ParkeoX.ParkeoX.DTO.request.usersDTO.UserResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehicleTypeDTO.VehicleTypeDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesResponseDTO;
@@ -202,6 +206,69 @@ public class Mapper {
                 .name(lt.getName())
                 .MonthDuration(lt.getMonthDuration())
                 .createdAt(lt.getCreatedAt())
+                .build();
+
+    }
+
+    public static LicensesResponseDTO toResponseDTO(Licenses l) {
+        if(l == null) return null;
+
+        return LicensesResponseDTO.builder()
+                .idLicense(l.getIdLicense())
+                .company(l.getCompany().getName())
+                .licenseType(l.getLicenseType().getName())
+                .price(l.getPrice())
+                .beginAt(l.getBeginAt())
+                .endAt(l.getEndAt())
+                .status(l.getStatus().getStatus())
+                .createdAt(l.getCreatedAt())
+                .build();
+    }
+
+    public static LicensesRequestDTO toRequestDTO(Licenses l) {
+        if(l == null) return null;
+        return LicensesRequestDTO.builder()
+                .company(l.getCompany().getId())
+                .licenseType(l.getLicenseType().getId())
+                .price(l.getPrice())
+                .beginAt(l.getBeginAt())
+                .endAt(l.getEndAt())
+                .status(l.getStatus())
+                .createdAt(l.getCreatedAt())
+                .build();
+
+    }
+
+    public static UserRequestDTO toRequestDTO(Users u) {
+        if(u == null) return null;
+
+        return UserRequestDTO.builder()
+                .id(u.getId())
+                .cedula(u.getCedula())
+                .name(u.getName())
+                .email(u.getEmail())
+                .tel(u.getTel())
+                .password(u.getPassword())
+                .role(u.getRole().getId())
+                .status(u.getStatus().getId())
+                .company(u.getCompany().getId())
+                .createdAt(u.getCreatedAt())
+                .build();
+    }
+
+    public static UserResponseDTO toResponseDTO(Users u) {
+        if(u == null) return null;
+
+        return UserResponseDTO.builder()
+                .id(u.getId())
+                .cedula(u.getCedula())
+                .name(u.getName())
+                .email(u.getEmail())
+                .tel(u.getTel())
+                .role(u.getRole().getRol())
+                .status(u.getStatus().getStatus())
+                .company(u.getCompany().getName())
+                .createdAt(u.getCreatedAt())
                 .build();
 
     }

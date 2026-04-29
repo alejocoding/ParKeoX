@@ -19,6 +19,10 @@ public class Users {
 
     // Important data
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
     private String cedula;
 
     @Column(nullable = false)
@@ -27,7 +31,7 @@ public class Users {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private Integer tel;
+    private Long tel;
 
     private String password;
 

@@ -1,4 +1,4 @@
-package com.ParkeoX.ParkeoX.services.licenses;
+package com.ParkeoX.ParkeoX.services.licenses.licensesType;
 
 
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;

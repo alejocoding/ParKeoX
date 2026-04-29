@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 public class Licenses {
     @Id
-    private String id_license;
+    private String idLicense;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

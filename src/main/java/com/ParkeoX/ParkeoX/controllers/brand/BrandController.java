@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/basics/brand")
+@CrossOrigin(origins = "\"http://localhost:4200\"")
 public class BrandController {
 
     @Autowired

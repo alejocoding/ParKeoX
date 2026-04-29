@@ -60,11 +60,11 @@ public class TicketService implements ITicketService {
         Status status = statusRepository.findById(ticketsRequestDTO.getStatus()).orElseThrow(() -> new NotFoundException("Status not found"));
         Tariff tariff = tariffRepository.findById(ticketsRequestDTO.getTariff()).orElseThrow(() -> new NotFoundException("Tariff not found"));
 
+        ticket.setStatus(status);
         ticket.setTariff(tariff);
         ticket.setCheckInAt(ticketsRequestDTO.getCheckInAt());
         ticket.setCheckOutAt(ticketsRequestDTO.getCheckOutAt());
         ticket.setTotal(ticketsRequestDTO.getTotal());
-        ticket.setStatus(status);
 
         return Mapper.toRequestDTO(repo.save(ticket));
     }

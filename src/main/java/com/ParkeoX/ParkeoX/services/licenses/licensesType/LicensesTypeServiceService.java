@@ -1,4 +1,4 @@
-package com.ParkeoX.ParkeoX.services.licenses;
+package com.ParkeoX.ParkeoX.services.licenses.licensesType;
 
 
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
@@ -29,7 +29,6 @@ public class LicensesTypeServiceService implements ILicencesTypeService {
        LicenseType licenseType = LicenseType.builder()
                .name(licenseTypeDTO.getName())
                .MonthDuration(licenseTypeDTO.getMonthDuration())
-               .createdAt(licenseTypeDTO.getCreatedAt())
                .build();
 
        return Mapper.toDTO(repo.save(licenseType));
@@ -39,10 +38,8 @@ public class LicensesTypeServiceService implements ILicencesTypeService {
     public LicenseTypeDTO updateLicenseType(Long id, LicenseTypeDTO licenseTypeDTO) {
 
         LicenseType licenseType = repo.findById(id).orElseThrow(()->new NotFoundException("License type not found"));
-
         licenseType.setName(licenseTypeDTO.getName());
         licenseType.setMonthDuration(licenseTypeDTO.getMonthDuration());
-
         return Mapper.toDTO(repo.save(licenseType));
     }
 

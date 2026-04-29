@@ -1,24 +1,23 @@
 package com.ParkeoX.ParkeoX.DTO.request.usersDTO;
 
-import com.ParkeoX.ParkeoX.models.Company;
-import com.ParkeoX.ParkeoX.models.Status;
 import lombok.*;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsersDTO {
 
+public class UserResponseDTO {
+    private Long id;
     private String cedula;
     private String name;
     private String email;
-    private Integer tel;
-    private Status role;
-    private Company company;
-    private Status status;
+    private Long tel;
+    private String role;
+    private String company;
+    private String status;
     private LocalDateTime createdAt;
 }

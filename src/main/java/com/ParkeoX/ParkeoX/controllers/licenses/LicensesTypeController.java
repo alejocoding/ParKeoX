@@ -1,9 +1,8 @@
 package com.ParkeoX.ParkeoX.controllers.licenses;
 
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
-import com.ParkeoX.ParkeoX.services.licenses.ILicencesTypeService;
+import com.ParkeoX.ParkeoX.services.licenses.licensesType.ILicencesTypeService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
