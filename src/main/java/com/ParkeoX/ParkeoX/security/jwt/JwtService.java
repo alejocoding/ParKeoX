@@ -10,9 +10,10 @@ import java.util.Date;
 public class JwtService {
     private final String SECRET_KEY = "bXlfc2VjcmV0X2tleV8xMjM0NTY3ODkwMTIzNDU2Nzg5MA==";
 
-    public String generateToken(String email, String rol, String estado) {
+    public String generateToken(String nombre,String email, String rol, String estado) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("nombre", nombre)
                 .claim("rol", rol)
                 .claim("estado", estado)
                 .setIssuedAt(new Date())

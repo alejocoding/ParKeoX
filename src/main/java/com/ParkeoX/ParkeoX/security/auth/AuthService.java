@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -24,8 +26,15 @@ public class AuthService {
 
     public ResponseEntity<?> login(AuthRequest request) {
 
-        Users user = usersRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Optional<Users> optionalUser = usersRepository.findByEmail(request.getEmail());
+
+        if(optionalUser.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Credenciales incorrectas, intentelo de nuevo");
+        }
+
+        Users user = optionalUser.get();
 
         // 🔐 VALIDACIÓN REAL
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
@@ -40,7 +49,7 @@ public class AuthService {
                     .body("User inactive");
         }
 
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().getRol(), user.getStatus().getStatus());
+        String token = jwtService.generateToken(user.getName(),user.getEmail(), user.getRole().getRol(), user.getStatus().getStatus());
 
         return ResponseEntity.ok( new AuthResponse(token));
     }
