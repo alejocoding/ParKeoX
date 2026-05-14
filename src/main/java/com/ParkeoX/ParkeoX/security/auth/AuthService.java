@@ -49,7 +49,7 @@ public class AuthService {
                     .body("User inactive");
         }
 
-        String token = jwtService.generateToken(user.getName(),user.getEmail(), user.getRole().getRol(), user.getStatus().getStatus());
+        String token = jwtService.generateToken(user.getName(),user.getEmail(), user.getRole().getRol(), user.getStatus().getStatus(),user.getCompany().getNit());
 
         return ResponseEntity.ok( new AuthResponse(token));
     }

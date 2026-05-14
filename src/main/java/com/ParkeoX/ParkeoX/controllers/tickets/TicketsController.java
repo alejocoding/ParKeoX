@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("advanced/ticket")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class TicketsController {
 
 
