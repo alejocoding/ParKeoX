@@ -24,6 +24,12 @@ public class TariffController {
         return ResponseEntity.ok().body(tariffService.findAll());
     }
 
+    // TARIFFS BY NIT
+    @GetMapping("/company/{nit}")
+    public ResponseEntity<List<TariffResponseDTO>> getTariff(@PathVariable String nit) {
+        return ResponseEntity.ok().body(tariffService.findTariffByCompany(nit));
+    }
+
     @PostMapping
     public ResponseEntity<TariffRequestDTO> createTariff(@RequestBody TariffRequestDTO tariffRequestDTO) {
         TariffRequestDTO create = tariffService.CreateTariff(tariffRequestDTO);

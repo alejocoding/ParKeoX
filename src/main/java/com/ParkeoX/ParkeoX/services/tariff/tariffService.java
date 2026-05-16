@@ -32,6 +32,11 @@ public class tariffService implements ITariffService {
     }
 
     @Override
+    public List<TariffResponseDTO> findTariffByCompany(String nit) {
+        return repo.findByCompanyNit(nit).stream().map(Mapper::toResponseDTO).toList();
+    }
+
+    @Override
     public TariffRequestDTO CreateTariff(TariffRequestDTO tariffRequestDTO) {
 
         VehicleType type = vehicleTypeRepository.findById(tariffRequestDTO.getVehicleType()).orElseThrow(() -> new NotFoundException("VehicleType not found"));

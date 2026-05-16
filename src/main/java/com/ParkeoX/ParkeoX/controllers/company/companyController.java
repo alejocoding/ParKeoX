@@ -23,6 +23,10 @@ public class companyController {
     public ResponseEntity<List<CompanyResponseDTO>> getCompanies() {
         return ResponseEntity.ok(companyService.findAll());
     }
+    @GetMapping("/unique/{nit}")
+    public ResponseEntity<CompanyResponseDTO> getCompany(@PathVariable String nit) {
+        return ResponseEntity.ok(companyService.findCompany(nit));
+    }
 
     @PostMapping
     public ResponseEntity<CompanyRequestDTO> createCompany(@RequestBody CompanyRequestDTO dto) {

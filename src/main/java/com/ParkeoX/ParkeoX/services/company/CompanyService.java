@@ -28,6 +28,12 @@ public class CompanyService implements ICompanyService{
     }
 
     @Override
+    public CompanyResponseDTO findCompany(String nit) {
+        return repo.findBynit(nit).map(Mapper::toResponseDTO).orElseThrow(() -> new NotFoundException("Company not found"));
+    }
+
+
+    @Override
     public CompanyRequestDTO createCompany(CompanyRequestDTO companyRequestDTO) {
 
         Status status = statusRepo.findById(companyRequestDTO.getStatus())
