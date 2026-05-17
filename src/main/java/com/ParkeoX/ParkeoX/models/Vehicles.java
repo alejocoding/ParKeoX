@@ -18,16 +18,6 @@ public class Vehicles {
     @Id
     private String plateNo;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "id_brand", nullable = true)
-    private Brand brand;
-
-    @Column(nullable = true)
-    private String model;
-
-    @Column(nullable = true)
-    private String color;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicleType_id")
     private VehicleType vehicleType;

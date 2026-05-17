@@ -5,10 +5,8 @@ import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesResponseDTO;
 import com.ParkeoX.ParkeoX.exceptions.NotFoundException;
 import com.ParkeoX.ParkeoX.mappers.Mapper;
-import com.ParkeoX.ParkeoX.models.Brand;
 import com.ParkeoX.ParkeoX.models.VehicleType;
 import com.ParkeoX.ParkeoX.models.Vehicles;
-import com.ParkeoX.ParkeoX.repository.brandRepository.BrandRepository;
 import com.ParkeoX.ParkeoX.repository.vehiclesRepository.VehicleTypeRepository;
 import com.ParkeoX.ParkeoX.repository.vehiclesRepository.VehiclesRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +21,6 @@ import java.util.List;
 public class VehicleService implements IVehicleService {
 
     private final VehiclesRepository repo;
-    private final BrandRepository brandRepository;
     private final VehicleTypeRepository vehicleTypeRepository;
 
     @Override
@@ -34,17 +31,12 @@ public class VehicleService implements IVehicleService {
     @Override
     public VehiclesRequestDTO saveVehicle(VehiclesRequestDTO vehicleDTO) {
 
-        //GET THE ID FROM THE BRAND
-        Brand brand = brandRepository.findById(vehicleDTO.getBrand()).orElseThrow(() -> new RuntimeException("Brand not found"));
 
         VehicleType type = vehicleTypeRepository.findById(vehicleDTO.getVehicleType()).orElseThrow(() -> new RuntimeException("VehicleType not found"));
 
         Vehicles vehicle = Vehicles.builder()
                 .plateNo(vehicleDTO.getPlateNo())
-                .model(vehicleDTO.getModel())
-                .color(vehicleDTO.getColor())
                 .vehicleType(type)
-                .brand(brand)
                 .build();
 
         return Mapper.toRequestDTO(repo.save(vehicle));
@@ -52,16 +44,11 @@ public class VehicleService implements IVehicleService {
 
     @Override
     public VehiclesRequestDTO updateVehicle(String plateNo, VehiclesRequestDTO vehicleDTO) {
-        //GET THE ID FROM THE BRAND
-        Brand brand = brandRepository.findById(vehicleDTO.getBrand()).orElseThrow(() -> new RuntimeException("Brand not found"));
 
         VehicleType type = vehicleTypeRepository.findById(vehicleDTO.getVehicleType()).orElseThrow(() -> new RuntimeException("VehicleType not found"));
 
         Vehicles vehicle = repo.findByPlateNo(plateNo).orElseThrow(() -> new NotFoundException("Vehicle not exist"));
 
-            vehicle.setBrand(brand);
-            vehicle.setModel(vehicleDTO.getModel());
-            vehicle.setColor( vehicleDTO.getColor());
             vehicle.setVehicleType(type);
 
             return  Mapper.toRequestDTO(repo.save(vehicle));

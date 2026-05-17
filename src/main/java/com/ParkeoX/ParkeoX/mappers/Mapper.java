@@ -1,6 +1,6 @@
 package com.ParkeoX.ParkeoX.mappers;
 
-import com.ParkeoX.ParkeoX.DTO.request.brandDTO.BrandDTO;
+
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
@@ -22,16 +22,6 @@ import com.ParkeoX.ParkeoX.DTO.request.vehiclesDTO.VehiclesResponseDTO;
 import com.ParkeoX.ParkeoX.models.*;
 
 public class Mapper {
-
-
-    public static BrandDTO toDTO(Brand b) {
-
-        if(b == null) return null;
-        return BrandDTO.builder()
-                .id(b.getId())
-                .Brand(b.getBrand())
-                .build();
-    }
 
     public static CompanyRequestDTO toRequestDTO(Company c) {
         if(c == null) return null;
@@ -119,9 +109,6 @@ public class Mapper {
 
         return VehiclesRequestDTO.builder()
                 .plateNo(vs.getPlateNo())
-                .brand(vs.getBrand().getId())
-                .color(vs.getColor())
-                .model(vs.getModel())
                 .vehicleType(vs.getVehicleType().getId())
                 .createdAt(vs.getCreatedAt())
                 .build();
@@ -132,9 +119,6 @@ public class Mapper {
 
         return VehiclesResponseDTO.builder()
                 .plateNo(vs.getPlateNo())
-                .brand(vs.getBrand().getBrand())
-                .color(vs.getColor())
-                .model(vs.getModel())
                 .vehicleType(vs.getVehicleType().getName())
                 .createdAt(vs.getCreatedAt())
                 .build();
