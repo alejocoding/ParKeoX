@@ -22,6 +22,7 @@ public class TicketsRequestDTO {
     private LocalDateTime checkOutAt;
     private Long tariff;
     private List<Payments> payments;
+    private String email;
     private Long status;
     private Double total;
 }

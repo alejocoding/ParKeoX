@@ -49,7 +49,7 @@ public class tariffService implements ITariffService {
                 .company(company)
                 .build();
 
-        return  Mapper.toRequestDTO(repo.save(tariff));
+        return Mapper.toRequestDTO(repo.save(tariff));
     }
 
     @Override

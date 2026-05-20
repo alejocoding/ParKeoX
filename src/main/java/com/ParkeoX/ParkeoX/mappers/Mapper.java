@@ -163,6 +163,7 @@ public class Mapper {
                 .checkOutAt(t.getCheckOutAt())
                 .tariff(t.getTariff().getId())
                 .status(t.getStatus().getId())
+                .email(t.getUser().getEmail())
                 .total(t.getTotal())
                 .build();
     }
@@ -178,6 +179,7 @@ public class Mapper {
                 .checkOutAt(t.getCheckOutAt())
                 .tariff(t.getTariff().getPrice())
                 .status(t.getStatus().getStatus())
+                .user(t.getUser().getName())
                 .total(t.getTotal())
                 .build();
     }

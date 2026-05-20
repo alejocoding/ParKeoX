@@ -23,6 +23,7 @@ public class TicketsResponseDTO {
     private LocalDateTime checkOutAt;
     private Double tariff;
     private List<Payments> payments;
+    private String user;
     private String status;
     private Double total;
 }

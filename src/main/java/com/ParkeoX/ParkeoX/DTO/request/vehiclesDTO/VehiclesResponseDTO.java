@@ -14,9 +14,6 @@ import java.time.LocalDateTime;
 public class VehiclesResponseDTO {
 
     private String plateNo;
-    private String brand;
-    private String model;
-    private String color;
     private String vehicleType;
     private LocalDateTime createdAt;
 }

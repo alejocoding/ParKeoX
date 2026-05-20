@@ -37,6 +37,10 @@ public class Tickets {
     @JoinColumn(name = "status_id", nullable = false)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", nullable = false)
+    private Users user;
+
     private Double total;
 
 }

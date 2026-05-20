@@ -10,6 +10,7 @@ import com.ParkeoX.ParkeoX.repository.paymentsRepository.PaymentsRepository;
 import com.ParkeoX.ParkeoX.repository.statusRepository.StatusRepository;
 import com.ParkeoX.ParkeoX.repository.tariffRepository.TariffRepository;
 import com.ParkeoX.ParkeoX.repository.ticketsRepository.TicketsRepository;
+import com.ParkeoX.ParkeoX.repository.usersRepository.UsersRepository;
 import com.ParkeoX.ParkeoX.repository.vehiclesRepository.VehiclesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class TicketService implements ITicketService {
     private final TariffRepository tariffRepository;
     private final PaymentsRepository paymentsRepository;
     private final StatusRepository statusRepository;
+    private final UsersRepository usersRepository;
 
     @Override
     public List<TicketsResponseDTO> findAll() {
@@ -34,9 +36,23 @@ public class TicketService implements ITicketService {
     @Override
     public TicketsRequestDTO createTicket(TicketsRequestDTO ticketsRequestDTO) {
 
-        Vehicles vehicle = vehiclesRepository.findById(ticketsRequestDTO.getVehicle()).orElseThrow(() -> new NotFoundException("Vehicle not found"));
         Tariff tariff = tariffRepository.findById(ticketsRequestDTO.getTariff()).orElseThrow(() -> new NotFoundException("Tariff not found"));
-        Status status =  statusRepository.findById(ticketsRequestDTO.getStatus()).orElseThrow(() -> new NotFoundException("Status not found"));
+
+        Vehicles vehicle = vehiclesRepository
+                            .findByPlateNo(ticketsRequestDTO.getVehicle())
+                            .orElseGet(()-> {
+
+                                    Vehicles newVehicle = Vehicles.builder()
+                                            .plateNo(ticketsRequestDTO.getVehicle())
+                                            .vehicleType(tariff.getVehicleType())
+                                            .build();
+                                    return vehiclesRepository.save(newVehicle);
+                            });
+
+        Users user = usersRepository.findByEmail(ticketsRequestDTO.getEmail()).orElseThrow(() -> new NotFoundException("User not found"));
+
+
+        Status status =  statusRepository.findById(1L).orElseThrow(() -> new NotFoundException("Status not found"));
 
 
       Tickets ticket = Tickets.builder()
@@ -46,6 +62,7 @@ public class TicketService implements ITicketService {
               .checkOutAt(ticketsRequestDTO.getCheckOutAt())
               .tariff(tariff)
               .status(status)
+              .user(user)
               .total(ticketsRequestDTO.getTotal())
               .build();
 
