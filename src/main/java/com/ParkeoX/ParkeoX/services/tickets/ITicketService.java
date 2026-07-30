@@ -9,6 +9,7 @@ public interface ITicketService {
 
     List<TicketsResponseDTO> findAll();
     TicketsRequestDTO createTicket(TicketsRequestDTO ticketsRequestDTO);
+    TicketsRequestDTO cerrarTicket(Long id);
     TicketsRequestDTO updateTicket(Long id, TicketsRequestDTO ticketsRequestDTO);
     Void deleteTicket(Long id);
 }

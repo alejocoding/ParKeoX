@@ -71,6 +71,17 @@ public class TicketService implements ITicketService {
     }
 
     @Override
+    public TicketsRequestDTO cerrarTicket(Long id) {
+        Tickets ticket = repo.findById(id).orElseThrow(() -> new NotFoundException("Ticket not found"));
+        Status status = statusRepository.findById(2L).orElseThrow(() -> new NotFoundException("Status not found"));
+        ticket.setStatus(status);
+
+        return Mapper.toRequestDTO(repo.save(ticket));
+
+
+    }
+
+    @Override
     public TicketsRequestDTO updateTicket(Long id, TicketsRequestDTO ticketsRequestDTO) {
 
         Tickets ticket = repo.findById(id).orElseThrow(() -> new NotFoundException("Ticket not found"));

@@ -37,7 +37,7 @@ public class companyController {
 
     @PutMapping("/{nit}")
     public ResponseEntity<CompanyRequestDTO> updateCompany(@PathVariable String nit, @RequestBody CompanyRequestDTO dto){
-        return ResponseEntity.ok(companyService.updateCompany(nit, dto));
+        return ResponseEntity.ok(companyService.updateCompany(nit, dto));   
     }
 
     @DeleteMapping("/{id}")

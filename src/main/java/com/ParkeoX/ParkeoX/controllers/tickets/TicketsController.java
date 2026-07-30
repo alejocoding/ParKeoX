@@ -33,6 +33,12 @@ public class TicketsController {
         return ResponseEntity.created(URI.create("/tickets")).body(ticket);
     }
 
+    @PostMapping("/close/{ticketId}")
+    public ResponseEntity<TicketsRequestDTO> closeTicket(@PathVariable Long ticketId) {
+        TicketsRequestDTO ticket = ticketService.cerrarTicket(ticketId);
+        return ResponseEntity.ok().body(ticket);
+    }
+
 
     @PutMapping("/{ticketId}")
     public ResponseEntity<TicketsRequestDTO>  update(@PathVariable Long ticketId, @RequestBody TicketsRequestDTO ticketsRequestDTO) {
