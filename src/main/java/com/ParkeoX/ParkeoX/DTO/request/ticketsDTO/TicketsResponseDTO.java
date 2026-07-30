@@ -21,9 +21,11 @@ public class TicketsResponseDTO {
     private String vehicle;
     private LocalDateTime checkInAt;
     private LocalDateTime checkOutAt;
+    private Long tariffId;
     private Double tariff;
     private List<Payments> payments;
     private String user;
+    private Long statusId;
     private String status;
     private Double total;
 }
