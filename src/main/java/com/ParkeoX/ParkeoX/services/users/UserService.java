@@ -15,6 +15,9 @@ import com.ParkeoX.ParkeoX.repository.statusRepository.StatusRepository;
 import com.ParkeoX.ParkeoX.repository.usersRepository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,11 @@ import java.util.Optional;
 
 public class UserService implements IUserService {
 
+    private static final int PAGE_SIZE = 30;
+    // SUPERADMIN es un rol de plataforma, aun sin modulo propio: no debe ser visible
+    // ni administrable por los ADMIN de una compania.
+    private static final String SUPERADMIN_ROLE = "SUPERADMIN";
+
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
     private final CompanyRepository companyRepository;
@@ -33,8 +41,14 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public List<UserResponseDTO> findAll() {
-        return usersRepository.findAll().stream().map(Mapper::toResponseDTO).toList();
+    public Page<UserResponseDTO> findAll(int page) {
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+        return usersRepository.findAll(pageable).map(Mapper::toResponseDTO);
+    }
+
+    @Override
+    public List<UserResponseDTO> findByCompany(String nit) {
+        return usersRepository.findByCompanyNitExcludingRole(nit, SUPERADMIN_ROLE).stream().map(Mapper::toResponseDTO).toList();
     }
 
     @Override
@@ -69,12 +83,56 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserRequestDTO updateUser(String CC, UserRequestDTO userDTO) {
-        return null;
+    public UserResponseDTO updateUser(String cedula, UserRequestDTO userDTO) {
+        Users user = usersRepository.findByCedula(cedula)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (userDTO.getEmail() != null && !userDTO.getEmail().equals(user.getEmail())) {
+            usersRepository.findByEmail(userDTO.getEmail()).ifPresent(u -> {
+                throw new RuntimeException("Email already exists");
+            });
+            user.setEmail(userDTO.getEmail());
+        }
+
+        if (userDTO.getCedula() != null && !userDTO.getCedula().equals(user.getCedula())) {
+            usersRepository.findByCedula(userDTO.getCedula()).ifPresent(u -> {
+                throw new RuntimeException("cedula already exists");
+            });
+            user.setCedula(userDTO.getCedula());
+        }
+
+        if (userDTO.getName() != null) user.setName(userDTO.getName());
+        if (userDTO.getTel() != null) user.setTel(userDTO.getTel());
+
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
+
+        if (userDTO.getRole() != null) {
+            Roles role = rolesRepository.findById(userDTO.getRole())
+                    .orElseThrow(() -> new NotFoundException("Role not found"));
+            user.setRole(role);
+        }
+
+        if (userDTO.getCompany() != null) {
+            Company company = companyRepository.findById(userDTO.getCompany())
+                    .orElseThrow(() -> new NotFoundException("Company not found"));
+            user.setCompany(company);
+        }
+
+        if (userDTO.getStatus() != null) {
+            Status status = statusRepository.findById(userDTO.getStatus())
+                    .orElseThrow(() -> new NotFoundException("Status not found"));
+            user.setStatus(status);
+        }
+
+        return Mapper.toResponseDTO(usersRepository.save(user));
     }
 
     @Override
-    public Void deleteUser(String CC) {
-        return null;
+    public void deleteUser(String cedula) {
+        Users user = usersRepository.findByCedula(cedula)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+        usersRepository.delete(user);
     }
 }

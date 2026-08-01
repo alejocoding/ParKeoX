@@ -4,7 +4,7 @@ package com.ParkeoX.ParkeoX.mappers;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.companyDTO.CompanyResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
-import com.ParkeoX.ParkeoX.DTO.request.licensesDTO.LicensesRequestDTO;
+import com.ParkeoX.ParkeoX.DTO.request.licensesDTO.LicenseRenewalRequestDTO;
 import com.ParkeoX.ParkeoX.DTO.request.licensesDTO.LicensesResponseDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsDTO.PaymentsDTO;
 import com.ParkeoX.ParkeoX.DTO.request.paymentsMethodDTO.PaymentsMethodDTO;
@@ -203,7 +203,7 @@ public class Mapper {
 
         return LicensesResponseDTO.builder()
                 .idLicense(l.getIdLicense())
-                .company(l.getCompany().getName())
+                .company(l.getCompany() != null ? l.getCompany().getName() : null)
                 .licenseType(l.getLicenseType().getName())
                 .price(l.getPrice())
                 .beginAt(l.getBeginAt())
@@ -213,18 +213,17 @@ public class Mapper {
                 .build();
     }
 
-    public static LicensesRequestDTO toRequestDTO(Licenses l) {
-        if(l == null) return null;
-        return LicensesRequestDTO.builder()
-                .company(l.getCompany().getId())
-                .licenseType(l.getLicenseType().getId())
-                .price(l.getPrice())
-                .beginAt(l.getBeginAt())
-                .endAt(l.getEndAt())
-                .status(l.getStatus())
-                .createdAt(l.getCreatedAt())
-                .build();
+    public static LicenseRenewalRequestDTO toDTO(LicenseRenewalRequest r) {
+        if(r == null) return null;
 
+        return LicenseRenewalRequestDTO.builder()
+                .id(r.getId())
+                .idLicense(r.getLicense().getIdLicense())
+                .company(r.getLicense().getCompany() != null ? r.getLicense().getCompany().getName() : null)
+                .requestedByEmail(r.getRequestedBy().getEmail())
+                .resolved(r.isResolved())
+                .requestedAt(r.getRequestedAt())
+                .build();
     }
 
     public static UserRequestDTO toRequestDTO(Users u) {

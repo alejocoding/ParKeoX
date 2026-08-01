@@ -1,6 +1,5 @@
 package com.ParkeoX.ParkeoX.DTO.request.licensesDTO;
 
-import com.ParkeoX.ParkeoX.models.Status;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +18,6 @@ public class LicensesRequestDTO {
     private Double price;
     private LocalDateTime beginAt;
     private LocalDateTime endAt;
-    private Status status;
+    private Long status;
     private LocalDateTime createdAt;
 }

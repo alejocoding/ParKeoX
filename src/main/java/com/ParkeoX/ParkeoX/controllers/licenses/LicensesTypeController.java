@@ -4,6 +4,7 @@ import com.ParkeoX.ParkeoX.DTO.request.licenseTypeDTO.LicenseTypeDTO;
 import com.ParkeoX.ParkeoX.services.licenses.licensesType.ILicencesTypeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,17 +23,20 @@ public class LicensesTypeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('SUPERADMIN')")
     public ResponseEntity<LicenseTypeDTO> createLicenses(@RequestBody LicenseTypeDTO licenseTypeDTO) {
         return ResponseEntity.created(URI.create("/licensesType")).body(repo.createLicenseType(licenseTypeDTO));
     }
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('SUPERADMIN')")
     public ResponseEntity<LicenseTypeDTO> updateLicenses(@PathVariable Long id, @RequestBody LicenseTypeDTO licenseTypeDTO) {
         return ResponseEntity.ok().body(repo.updateLicenseType(id, licenseTypeDTO));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('SUPERADMIN')")
     public ResponseEntity<Void> deleteLicenses(@PathVariable Long id) {
         repo.deleteLicenseType(id);
         return ResponseEntity.noContent().build();

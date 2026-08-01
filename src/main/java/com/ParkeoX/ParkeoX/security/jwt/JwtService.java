@@ -1,6 +1,7 @@
 package com.ParkeoX.ParkeoX.security.jwt;
 
 import com.ParkeoX.ParkeoX.models.Company;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,17 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("rol", String.class);
+    }
+
+    private Claims extractAllClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 }
