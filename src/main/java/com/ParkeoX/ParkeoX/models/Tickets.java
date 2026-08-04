@@ -41,6 +41,9 @@ public class Tickets {
     @JoinColumn(name = "users_id", nullable = false)
     private Users user;
 
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
+    private List<Payments> payments;
+
     private Double total;
 
 }

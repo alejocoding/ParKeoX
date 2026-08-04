@@ -20,6 +20,7 @@ public class LicensesResponseDTO {
     private Double price;
     private LocalDateTime beginAt;
     private LocalDateTime endAt;
+    private Integer maxUsers;
     private String status;
     private LocalDateTime createdAt;
 }

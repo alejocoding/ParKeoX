@@ -21,6 +21,9 @@ public class Tariff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String name;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -31,6 +34,10 @@ public class Tariff {
 
     @Column(nullable = false)
     private Double price;
+
+    @Column(nullable = true)
+    private Double minutePrice;
+
 
     @Column(nullable = false)
     private Boolean active;

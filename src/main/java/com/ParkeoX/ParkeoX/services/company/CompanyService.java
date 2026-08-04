@@ -44,6 +44,9 @@ public class CompanyService implements ICompanyService{
                 .name(companyRequestDTO.getName())
                 .nit(companyRequestDTO.getNit())
                 .address(companyRequestDTO.getAddress())
+                .email(companyRequestDTO.getEmail())
+                .phone(companyRequestDTO.getPhone())
+                .logo(companyRequestDTO.getLogo())
                 .status(status)
                 .build();
 
@@ -66,6 +69,9 @@ public class CompanyService implements ICompanyService{
         company.setName(companyRequestDTO.getName());
         company.setAddress(companyRequestDTO.getAddress());
         company.setNit(companyRequestDTO.getNit());
+        company.setEmail(companyRequestDTO.getEmail());
+        company.setPhone(companyRequestDTO.getPhone());
+        company.setLogo(companyRequestDTO.getLogo());
         company.setStatus(status);
 
         return Mapper.toRequestDTO(repo.save(company));

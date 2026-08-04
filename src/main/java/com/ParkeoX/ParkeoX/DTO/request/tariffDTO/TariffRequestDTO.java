@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 public class TariffRequestDTO {
 
     private Long id;
+    private String name;
     private Long company;
     private Long vehicleType;
     private Double price;
+    private Double minutePrice;
     private Boolean active;
     private LocalDateTime createdAt;
 }

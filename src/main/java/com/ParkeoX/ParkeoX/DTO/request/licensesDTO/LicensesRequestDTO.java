@@ -18,6 +18,7 @@ public class LicensesRequestDTO {
     private Double price;
     private LocalDateTime beginAt;
     private LocalDateTime endAt;
+    private Integer maxUsers;
     private Long status;
     private LocalDateTime createdAt;
 }

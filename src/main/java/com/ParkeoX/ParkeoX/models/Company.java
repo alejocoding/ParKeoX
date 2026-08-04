@@ -27,14 +27,21 @@ public class Company {
     @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String phone;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_status")
     private Status status;
 
+    @Column(nullable = true)
+    private String logo;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
-
 
 }

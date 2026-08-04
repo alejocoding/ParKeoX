@@ -31,6 +31,9 @@ public class Licenses {
     private LocalDateTime beginAt;
     private LocalDateTime endAt;
 
+    @Column(nullable = false)
+    private Integer maxUsers;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_status", nullable = false)
     private Status status;

@@ -17,6 +17,9 @@ public class CompanyResponseDTO {
     private String nit;
     private String name;
     private String address;
+    private String email;
+    private String phone;
+    private String logo;
     private String status;
     private LocalDateTime createdAt;
 

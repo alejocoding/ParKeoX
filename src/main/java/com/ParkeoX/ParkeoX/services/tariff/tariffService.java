@@ -43,7 +43,9 @@ public class tariffService implements ITariffService {
         Company company =  companyRepository.findById(tariffRequestDTO.getCompany()).orElseThrow(() -> new NotFoundException("Company not found"));
 
         Tariff  tariff = Tariff.builder()
+                .name(tariffRequestDTO.getName())
                 .price(tariffRequestDTO.getPrice())
+                .minutePrice(tariffRequestDTO.getMinutePrice())
                 .active(tariffRequestDTO.getActive())
                 .vehicleType(type)
                 .company(company)
@@ -59,7 +61,9 @@ public class tariffService implements ITariffService {
 
         Tariff tariff = repo.findById(id).orElseThrow(() -> new NotFoundException("Tariff not found"));
 
+            tariff.setName(tariffRequestDTO.getName());
             tariff.setPrice(tariffRequestDTO.getPrice());
+            tariff.setMinutePrice(tariffRequestDTO.getMinutePrice());
             tariff.setActive(tariffRequestDTO.getActive());
             tariff.setVehicleType(type);
             tariff.setCompany(company);

@@ -14,6 +14,7 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
     Optional<Users> findByEmail(String email);
     Optional<Users> findByCedula(String cedula);
     List<Users> findByCompanyNit(String nit);
+    long countByCompany_Id(Long companyId);
 
     @Query("SELECT u FROM Users u WHERE u.company.nit = :nit AND u.role.rol <> :excludedRole")
     List<Users> findByCompanyNitExcludingRole(@Param("nit") String nit, @Param("excludedRole") String excludedRole);

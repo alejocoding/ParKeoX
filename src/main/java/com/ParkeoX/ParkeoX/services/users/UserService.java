@@ -6,10 +6,12 @@ import com.ParkeoX.ParkeoX.DTO.request.usersDTO.UserResponseDTO;
 import com.ParkeoX.ParkeoX.exceptions.NotFoundException;
 import com.ParkeoX.ParkeoX.mappers.Mapper;
 import com.ParkeoX.ParkeoX.models.Company;
+import com.ParkeoX.ParkeoX.models.Licenses;
 import com.ParkeoX.ParkeoX.models.Roles;
 import com.ParkeoX.ParkeoX.models.Status;
 import com.ParkeoX.ParkeoX.models.Users;
 import com.ParkeoX.ParkeoX.repository.companyRepository.CompanyRepository;
+import com.ParkeoX.ParkeoX.repository.licensesRepository.LicenseRepository;
 import com.ParkeoX.ParkeoX.repository.rolesRepository.RolesRepository;
 import com.ParkeoX.ParkeoX.repository.statusRepository.StatusRepository;
 import com.ParkeoX.ParkeoX.repository.usersRepository.UsersRepository;
@@ -38,6 +40,7 @@ public class UserService implements IUserService {
     private final RolesRepository rolesRepository;
     private final CompanyRepository companyRepository;
     private final StatusRepository statusRepository;
+    private final LicenseRepository licenseRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -65,6 +68,8 @@ public class UserService implements IUserService {
         if (email.isPresent()) throw new RuntimeException("Email already exists");
         if (cedula.isPresent()) throw new RuntimeException("cedula already exists");
 
+        validateUserLimit(company);
+
 
         Users usuario = Users.builder()
                 .id(userDTO.getId())
@@ -80,6 +85,19 @@ public class UserService implements IUserService {
 
         return Mapper.toResponseDTO(usersRepository.save(usuario));
 
+    }
+
+    private void validateUserLimit(Company company) {
+        Optional<Licenses> latestLicense = licenseRepository.findFirstByCompany_IdOrderByEndAtDesc(company.getId());
+
+        if (latestLicense.isEmpty() || latestLicense.get().getMaxUsers() == null) {
+            return;
+        }
+
+        long currentUsers = usersRepository.countByCompany_Id(company.getId());
+        if (currentUsers >= latestLicense.get().getMaxUsers()) {
+            throw new RuntimeException("Se alcanzó el número máximo de usuarios permitido por la licencia");
+        }
     }
 
     @Override
@@ -117,6 +135,11 @@ public class UserService implements IUserService {
         if (userDTO.getCompany() != null) {
             Company company = companyRepository.findById(userDTO.getCompany())
                     .orElseThrow(() -> new NotFoundException("Company not found"));
+
+            boolean changingCompany = user.getCompany() == null || !user.getCompany().getId().equals(company.getId());
+            if (changingCompany) {
+                validateUserLimit(company);
+            }
             user.setCompany(company);
         }
 

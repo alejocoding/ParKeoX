@@ -71,6 +71,7 @@ public class LicensesService implements ILicensesService{
                 .price(licensesRequestDTO.getPrice())
                 .beginAt(licensesRequestDTO.getBeginAt())
                 .endAt(licensesRequestDTO.getEndAt())
+                .maxUsers(licensesRequestDTO.getMaxUsers())
                 .status(status)
                 .build();
 
@@ -100,6 +101,7 @@ public class LicensesService implements ILicensesService{
         license.setPrice(licensesRequestDTO.getPrice());
         license.setBeginAt(licensesRequestDTO.getBeginAt());
         license.setEndAt(licensesRequestDTO.getEndAt());
+        license.setMaxUsers(licensesRequestDTO.getMaxUsers());
         license.setStatus(status);
 
         return Mapper.toResponseDTO(repo.save(license));

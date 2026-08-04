@@ -31,6 +31,9 @@ public class Mapper {
                 .name(c.getName())
                 .nit(c.getNit())
                 .address(c.getAddress())
+                .email(c.getEmail())
+                .phone(c.getPhone())
+                .logo(c.getLogo())
                 .status(c.getStatus().getId())
                 .createdAt(c.getCreatedAt())
                 .build();
@@ -44,6 +47,9 @@ public class Mapper {
                 .name(c.getName())
                 .nit(c.getNit())
                 .address(c.getAddress())
+                .email(c.getEmail())
+                .phone(c.getPhone())
+                .logo(c.getLogo())
                 .status(c.getStatus().getStatus())
                 .createdAt(c.getCreatedAt())
                 .build();
@@ -131,11 +137,13 @@ public class Mapper {
 
         return TariffRequestDTO.builder()
                 .id(t.getId())
+                .name(t.getName())
                 .company(t.getCompany().getId())
                 .vehicleType(t.getVehicleType().getId())
                 .active(t.getActive())
                 .createdAt(t.getCreatedAt())
                 .price(t.getPrice())
+                .minutePrice(t.getMinutePrice())
                 .build();
     }
 
@@ -144,11 +152,13 @@ public class Mapper {
 
         return TariffResponseDTO.builder()
                 .id(t.getId())
+                .name(t.getName())
                 .company(t.getCompany().getName())
                 .vehicleType(t.getVehicleType().getName())
                 .active(t.getActive())
                 .createdAt(t.getCreatedAt())
                 .price(t.getPrice())
+                .minutePrice(t.getMinutePrice())
                 .build();
 
     }
@@ -208,6 +218,7 @@ public class Mapper {
                 .price(l.getPrice())
                 .beginAt(l.getBeginAt())
                 .endAt(l.getEndAt())
+                .maxUsers(l.getMaxUsers())
                 .status(l.getStatus().getStatus())
                 .createdAt(l.getCreatedAt())
                 .build();
